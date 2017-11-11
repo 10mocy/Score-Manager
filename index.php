@@ -38,8 +38,7 @@
                     <form method="POST">
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon">検索(ひらがな)</span>
-                                <input type="text" class="form-control" name="search[text]">
+                                <input type="text" class="form-control" placeholder="よみ検索" name="search[text]" value="<?= isset($searchText) ? $searchText : ""; ?>">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="submit" name="search[submit]"><i class="fa fa-search" aria-hidden="true"></i></button>
                                 </span>
