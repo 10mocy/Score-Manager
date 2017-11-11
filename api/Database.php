@@ -74,6 +74,30 @@
             return $data;
         }
 
+        function searchScores($_KANA) {
+            $sqli = $this->connectMySQL();
+            $query = 'SELECT * FROM scores WHERE scoreKana LIKE ?';
+            if($stmt = $sqli->prepare($query)) {
+                $kana = "%".$_KANA."%";
+                $stmt->bind_param("s", $kana);
+                $stmt->execute();
+
+                $stmt->bind_result($scoreID, $scoreName, $scoreInitial, $scoreKana, $schoolID);
+                $data = ["scores" => []];
+                while ($stmt->fetch()) {
+                    array_push($data["scores"], [
+                        "scoreID" => $scoreID,
+                        "scoreName" => $scoreName,
+                        "scoreInitial" => $scoreInitial,
+                        "scoreKana" => $scoreKana,
+                        "schoolID" => $schoolID
+                    ]);
+                }
+                $stmt->close();
+            }
+            return $data;
+        }
+
         function writeLog($_ID, $_CLASS, $_USER) {
             $sqli = $this->connectMySQL();
             $query = "INSERT INTO logs (scoreID, logClass, timestamp, screenName) VALUES (?, ?, ?, ?)";

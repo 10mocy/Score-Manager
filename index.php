@@ -13,14 +13,41 @@
     }
     require "./api/Database.php";
     $Database = new mnmonzk\Database();
-    $scoreslist = $Database->getAllScores()["scores"];
+    if(isset($_POST) && isset($_POST["search"]) && isset($_POST["search"]["submit"])) {
+        if(isset($_POST["search"]["text"])) {
+            $searchText = $_POST["search"]["text"];
+            $scoreslist = $Database->searchScores($searchText)["scores"];
+            $titleText = "「".htmlspecialchars($searchText)."」の検索結果";
+        }
+    } else {
+        $scoreslist = $Database->getAllScores()["scores"];
+        $titleText = "登録されているスコア";
+    }
+
     $scoresdata = array_slice($scoreslist, ($p -1) * 50, 50);
     $scorecount = count($scoreslist);
     $allp = intval(ceil($scorecount / 50));
 ?>
         <div class="container">
-            <h1>スコア管理システム</h1>
-            <h2 class="page-header">登録されているスコア<small> - 全<?= $scorecount ?>件</small></h2>
+            <div class="row">
+                <h1>スコア管理システム</h1>
+                <div class="col-sm-8">
+                    <h2><?= $titleText ?><small> - 全<?= $scorecount ?>件</small></h2>
+                </div>
+                <div class="col-sm-4">
+                    <form method="POST">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">検索(ひらがな)</span>
+                                <input type="text" class="form-control" name="search[text]">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit" name="search[submit]"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <?php //var_dump($Database->getAllScores()); ?>
 
             <ul class="pager">
