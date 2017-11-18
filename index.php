@@ -33,6 +33,7 @@
             }
         } elseif(isset($_POST["sort"])) {
             if(isset($_POST["sort"]["category"], $_POST["sort"]["order"])) {
+                $scoreslist = $Database->getSQLScores($_POST["sort"]["category"], $_POST["sort"]["order"])["scores"];
             }
         }
     } else {
@@ -117,8 +118,8 @@
         $latestlog = $Database->getLatestLog(intval($scores["scoreID"]));
         $status = intval($latestlog["logClass"]);
         switch($status) {
-            case 1: $class = "info"; break;
-            case 2: $class = "success"; break;
+            case 1: $class = "success"; break;
+            case 2: $class = "info"; break;
             case 3: $class = "warning"; break;
             case 4: $class = "danger"; break;
             default: $class = ""; break;

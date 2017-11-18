@@ -74,6 +74,28 @@
             return $data;
         }
 
+        function getSQLScores($_ROW, $_ORDER) {
+            $sqli = $this->connectMySQL();
+            $query = 'SELECT * FROM scores WHERE 1 ORDER BY '.htmlspecialchars($_ROW).' '.htmlspecialchars($_ORDER);
+            if($stmt = $sqli->prepare($query)) {
+                $stmt->execute();
+                
+                $stmt->bind_result($scoreID, $scoreName, $scoreInitial, $scoreKana, $schoolID);
+                $data = ["scores" => []];
+                while ($stmt->fetch()) {
+                    array_push($data["scores"], [
+                        "scoreID" => $scoreID,
+                        "scoreName" => $scoreName,
+                        "scoreInitial" => $scoreInitial,
+                        "scoreKana" => $scoreKana,
+                        "schoolID" => $schoolID
+                    ]);
+                }
+                $stmt->close();
+            }
+            return $data;
+        }
+
         function searchScores($_KANA) {
             $sqli = $this->connectMySQL();
             $query = 'SELECT * FROM scores WHERE scoreKana LIKE ?';
