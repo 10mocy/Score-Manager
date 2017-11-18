@@ -4,10 +4,10 @@
     include "header.php";
 
     $sortOrder = [
-        "ID" => "楽譜ID順",
-        "Rack" => "棚記号順",
-        "Yomi" => "よみあいうえお順",
-        "Organization" => "所有団体順"
+        "scoreID" => "楽譜ID順",
+        "scoreInitial" => "棚記号順",
+        "scoreKana" => "よみあいうえお順",
+        "schoolID" => "所有団体順"
     ];
 
     if(isset($_GET["p"]) && $_GET["p"] !== "") {
@@ -71,8 +71,8 @@
                             <div class="btn-toolbar">
                                 <div class="btn-group">
                                     <div class="btn-group">
-                                        <button type="submit" class="btn btn-default" name="sort[order]" value="asc"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></button>
-                                        <button type="submit" class="btn btn-default" name="sort[order]" value="desc"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></button>
+                                        <button type="submit" class="btn btn-default" name="sort[order]" value="ASC"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></button>
+                                        <button type="submit" class="btn btn-default" name="sort[order]" value="DESC"><i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                             </div>
