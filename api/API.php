@@ -19,7 +19,6 @@
             function getScoreList()
             {
                 if($result = self::$sqli->query("SELECT * FROM scores WHERE 1")) {
-                    $count = $result->num_rows;
                     $data = [];
                     while($row = $result->fetch_assoc()) {
                         $data[] = $row["scoreID"];
@@ -29,11 +28,11 @@
                 /* return: Array(Int scoreID) */
             }
         /* スコア情報取得 */
-            function loadScoreInfo($_ID)
+            function loadScoreInfo($scoreID)
             {
                 if($stmt = self::$sqli->prepare("SELECT * FROM scores WHERE scoreID = ?"))
                 {
-                    $stmt->bind_param("i", $_ID);
+                    $stmt->bind_param("i", $scoreID);
                     $stmt->execute();
 
                     $stmt->bind_result($scoreID, $scoreName, $scoreInitial, $scoreKana, $schoolID);
@@ -62,6 +61,23 @@
         /* ログ取得 */
             function loadLog($scoreID)
             {
+                if($stmt = self::$sqli->prepare("SELECT * FROM logs WHERE scoreID = ? ORDER BY logID DESC")) {
+                    $stmt->bind_param("i", $scoreID);
+                    $stmt->execute();
+                    $stmt->bind_result($logID, $scoreID, $logClass, $timestamp, $screenName);
+                    $data = [];
+                    while ($stmt->fetch()) {
+                        array_push($data, [
+                            "logID" => $logID,
+                            "scoreID" => $scoreID,
+                            "logClass" => $logClass,
+                            "timestamp" => $timestamp,
+                            "screenName" => $screenName
+                        ]);
+                    }
+                    $stmt->close();
+                }
+                return $data;
                 /* return: $classID, $userID, timestamp */
             }
         /* ログ書き込み */
@@ -99,6 +115,6 @@
     $API = new API();
     foreach($API::getScoreList() as $item)
     {
-        print_r($API::loadScoreInfo($item));
+        print_r($API::loadLog($item));
     }
 ?>
