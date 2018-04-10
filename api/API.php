@@ -111,10 +111,3 @@
                 /* return: MySQLi Object */
             }
     }
-
-    $API = new API();
-    foreach($API::getScoreList() as $item)
-    {
-        print_r($API::loadLog($item));
-    }
-?>
