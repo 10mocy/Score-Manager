@@ -1,0 +1,8 @@
+@font-face {
+    font-family: "ud-shingo";
+    src: url("/ukwo/renew/fonts/ud-shingo.woff") format('woff');
+}
+
+* {
+    font-family: "ud-shingo";
+}
