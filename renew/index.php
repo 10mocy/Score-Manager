@@ -28,12 +28,12 @@
 ?>
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1 class="display-4">スコア管理システム</h1>
+                <h1 class="display-4">楽譜発行管理システム</h1>
             </div>
         </div>
 
         <div class="container">
-            <h2>登録されているスコア <small class="badge badge-secondary"><?= $scoresCount ?>件</small></h2>
+            <h2>登録されている楽譜 <small class="badge badge-secondary"><?= $scoresCount ?>件</small></h2>
 
             <ul class="pagination justify-content-center">
                 <li class="page-item"><a class="page-link" href="?p=<?= ($p - 1) > 0 ? $p-1 : 1; ?>">&laquo;</a></li>

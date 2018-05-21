@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>楽譜発行管理システム</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link
             rel="stylesheet"
