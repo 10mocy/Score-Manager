@@ -8,7 +8,7 @@
      */
 
     include "inc/header.php";
-    require_once "../api/API.php";
+    require_once "api/API.php";
         $API = new nirot1r\API();
 
     if(isset($_GET["p"]) && $_GET["p"] !== "") {
