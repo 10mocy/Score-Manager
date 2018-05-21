@@ -20,7 +20,7 @@
         $p = 1;
     }
 
-    $scoresList = $API::getScoreList();
+    $scoresList = $API->getScoreList();
     $scoresID = array_slice($scoresList, ($p -1) * 50, 50);
     $scoresCount = count($scoresList);
     $allPages = intval(ceil($scoresCount / 50));
@@ -55,7 +55,7 @@
                 <tbody>
                 <?php
                     foreach($scoresID as $item):
-                        $scoreData = $API::loadScoreInfo($item);
+                        $scoreData = $API->loadScoreInfo($item);
                 ?>
                     <tr class="success">
                         <th scope="row"><?= $item ?></th>
