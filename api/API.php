@@ -97,6 +97,12 @@
             {
                 /* return: Object User */
             }
+        
+        /* 楽譜発行予定部数登録 */
+            function addPrintScore($scoreID, $partName, $printCount)
+            {
+                /* return: Boolean */
+            }
 
         /* データベース接続 */
             function connectMySQL()
