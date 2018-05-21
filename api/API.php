@@ -11,14 +11,14 @@
                 if(!($sqli = $this->connectMySQL())) {
                     throw new \Exception("MySQL Connection Error");
                 } else {
-                 $this->$sqli = $sqli;
+                 self::$sqli = $sqli;
                 }
             }
 
         /* スコアリスト取得 */
             function getScoreList()
             {
-                if($result = $this->$sqli->query("SELECT * FROM scores WHERE 1")) {
+                if($result = self::$sqli->query("SELECT * FROM scores WHERE 1")) {
                     $data = [];
                     while($row = $result->fetch_assoc()) {
                         $data[] = $row["scoreID"];
@@ -30,7 +30,7 @@
         /* スコア情報取得 */
             function loadScoreInfo($scoreID)
             {
-                if($stmt = $this->$sqli->prepare("SELECT * FROM scores WHERE scoreID = ?"))
+                if($stmt = self::$sqli->prepare("SELECT * FROM scores WHERE scoreID = ?"))
                 {
                     $stmt->bind_param("i", $scoreID);
                     $stmt->execute();
@@ -61,7 +61,7 @@
         /* ログ取得 */
             function loadLog($scoreID)
             {
-                if($stmt = $this->$sqli->prepare("SELECT * FROM logs WHERE scoreID = ? ORDER BY logID DESC")) {
+                if($stmt = self::$sqli->prepare("SELECT * FROM logs WHERE scoreID = ? ORDER BY logID DESC")) {
                     $stmt->bind_param("i", $scoreID);
                     $stmt->execute();
                     $stmt->bind_result($logID, $scoreID, $logClass, $timestamp, $screenName);
